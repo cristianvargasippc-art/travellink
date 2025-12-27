@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelLink - All In One</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00bcd4;
+            --secondary: #ff6b35;
+            --accent: #ffd23f;
+            --ocean: #006d9e;
+            --sand: #f4e4c1;
+            --white: #ffffff;
+            --dark: #2c3e50;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 188, 212, 0.3), rgba(0, 109, 158, 0.5)), 
+                        url('imagenes/herobeach.webp') center/cover no-repeat fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-circle {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 8px solid var(--white);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+            object-fit: cover;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--white);
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .brand-subtitle {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 5px;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Sections */
+        section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--ocean);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* Province Grid */
+        .province-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .province-card {
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            padding: 2rem;
+            border-radius: 20px;
+            color: var(--white);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 188, 212, 0.3);
+        }
+
+        .province-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .province-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Province Details */
+        .province-details {
+            display: none;
+            background: linear-gradient(135deg, var(--sand), var(--white));
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            border: 4px solid var(--primary);
+            animation: slideIn 0.5s;
+        }
+
+        .province-details.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .detail-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .detail-content {
+            padding: 1.5rem;
+        }
+
+        .detail-content h4 {
+            color: var(--ocean);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .detail-content p {
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, var(--white), var(--sand));
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2);
+            border: 3px solid var(--primary);
+        }
+
+        .about-card h3 {
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-card p {
+            line-height: 1.8;
+        }
+
+        /* Booking Form */
+        .booking-container {
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            padding: 4rem 2rem;
+            border-radius: 25px;
+            max-width: 1000px;
+            margin: 3rem auto;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .booking-container h2 {
+            color: var(--white);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-section {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            color: var(--ocean);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--ocean);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: var(--sand);
+            border-radius: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--secondary);
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: var(--dark);
+            padding: 1.5rem 4rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--ocean), var(--primary));
+            color: var(--white);
+            text-align: center;
+            padding: 3rem;
+            margin-top: 5rem;
+            font-size: 1.1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 3rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .logo-circle {
+                width: 180px;
+                height: 180px;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <img src="imagenes/logotravellink.jpg" alt="TravelLink Logo" class="logo-circle">
+        <h1 class="brand-title">TRAVELLINK</h1>
+        <p class="brand-subtitle">ALL IN ONE</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#inicio">🏠 Inicio</a></li>
+            <li><a href="#nosotros">👥 Nosotros</a></li>
+            <li><a href="#provincias">📍 Provincias</a></li>
+            <li><a href="#reservar">✈️ Reservar</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <section id="nosotros">
+        <h2 class="section-title">Quiénes Somos</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>Nuestra Historia</h3>
+                <p>TravelLink All In One es tu agencia integral de viajes en República Dominicana. Ofrecemos experiencias completas que incluyen hospedaje, tours, gastronomía y transporte, todo en un solo lugar.</p>
+            </div>
+            
+            <div class="about-card">
+                <h3>Misión</h3>
+                <p>Facilitar experiencias turísticas excepcionales e integrales en República Dominicana, brindando servicios de calidad con precios actualizados y transparentes para cada destino del país.</p>
+            </div>
+            
+            <div class="about-card">
+                <h3>Visión</h3>
+                <p>Ser la plataforma líder en turismo dominicano, reconocida por ofrecer información actualizada, precios reales y servicios completos que simplifican la planificación de viajes perfectos.</p>
+            </div>
+            
+            <div class="about-card">
+                <h3>Valores</h3>
+                <p><strong>Transparencia:</strong> Precios reales actualizados.<br>
+                <strong>Calidad:</strong> Servicios excepcionales.<br>
+                <strong>Integridad:</strong> Todo en un solo lugar.<br>
+                <strong>Pasión:</strong> Amor por nuestro país.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Provinces Section -->
+    <section id="provincias">
+        <h2 class="section-title">Explora Nuestras Provincias</h2>
+        <p style="text-align: center; font-size: 1.3rem; margin-bottom: 2rem;">Selecciona una provincia para descubrir playas, hoteles, restaurantes, museos y zonas turísticas con precios actualizados</p>
+        
+        <div class="province-grid">
+            <div class="province-card" onclick="showProvince('la-altagracia')">
+                <h3>🏖️ La Altagracia</h3>
+                <p>Punta Cana, Bávaro</p>
+            </div>
+            <div class="province-card" onclick="showProvince('puerto-plata')">
+                <h3>🌊 Puerto Plata</h3>
+                <p>Costa Norte</p>
+            </div>
+            <div class="province-card" onclick="showProvince('samana')">
+                <h3>🐋 Samaná</h3>
+                <p>Ballenas y Cascadas</p>
+            </div>
+            <div class="province-card" onclick="showProvince('santo-domingo')">
+                <h3>🏛️ Santo Domingo</h3>
+                <p>Capital Colonial</p>
+            </div>
+            <div class="province-card" onclick="showProvince('la-romana')">
+                <h3>⛳ La Romana</h3>
+                <p>Golf y Lujo</p>
+            </div>
+            <div class="province-card" onclick="showProvince('barahona')">
+                <h3>🏞️ Barahona</h3>
+                <p>Bahía de las Águilas</p>
+            </div>
+            <div class="province-card" onclick="showProvince('santiago')">
+                <h3>🏙️ Santiago</h3>
+                <p>Ciudad Corazón</p>
+            </div>
+            <div class="province-card" onclick="showProvince('la-vega')">
+                <h3>🎭 La Vega</h3>
+                <p>Carnaval y Montañas</p>
+            </div>
+        </div>
+
+        <!-- Province Details Container -->
+        <div id="province-details-container"></div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="reservar">
+        <div class="booking-container">
+            <h2>🌴 Reserva Tu Viaje All In One 🌴</h2>
+            
+            <form onsubmit="return handleBooking(event)">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>📋 Información Personal</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre(s) *</label>
+                            <input type="text" name="nombre" required placeholder="Ej: Juan Carlos">
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido(s) *</label>
+                            <input type="text" name="apellido" required placeholder="Ej: Rodríguez García">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Cédula o Pasaporte *</label>
+                            <input type="text" name="documento" required placeholder="Ej: 001-1234567-8 o A12345678">
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" name="email" required placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Teléfono *</label>
+                            <input type="tel" name="telefono" required placeholder="+1 (809) 555-1234">
+                        </div>
+                        <div class="form-group">
+                            <label>País de Origen *</label>
+                            <input type="text" name="pais" required placeholder="Ej: Estados Unidos">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight Information -->
+                <div class="form-section">
+                    <h3>✈️ Información de Vuelo</h3>
+                    <div class="form-group">
+                        <label>Selecciona tu Aerolínea *</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="american" name="aerolinea" value="American Airlines">
+                                <label for="american">American Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="jetblue" name="aerolinea" value="JetBlue">
+                                <label for="jetblue">JetBlue Airways</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="delta" name="aerolinea" value="Delta">
+                                <label for="delta">Delta Air Lines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="united" name="aerolinea" value="United">
+                                <label for="united">United Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="spirit" name="aerolinea" value="Spirit">
+                                <label for="spirit">Spirit Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="copa" name="aerolinea" value="Copa">
+                                <label for="copa">Copa Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="avianca" name="aerolinea" value="Avianca">
+                                <label for="avianca">Avianca</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="air-europa" name="aerolinea" value="Air Europa">
+                                <label for="air-europa">Air Europa</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="iberia" name="aerolinea" value="Iberia">
+                                <label for="iberia">Iberia</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="air-france" name="aerolinea" value="Air France">
+                                <label for="air-france">Air France</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lufthansa" name="aerolinea" value="Lufthansa">
+                                <label for="lufthansa">Lufthansa</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="air-canada" name="aerolinea" value="Air Canada">
+                                <label for="air-canada">Air Canada</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="southwest" name="aerolinea" value="Southwest">
+                                <label for="southwest">Southwest Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="frontier" name="aerolinea" value="Frontier">
+                                <label for="frontier">Frontier Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="latam" name="aerolinea" value="LATAM">
+                                <label for="latam">LATAM Airlines</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="intercaribbean" name="aerolinea" value="InterCaribbean">
+                                <label for="intercaribbean">InterCaribbean Airways</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha de Llegada *</label>
+                            <input type="date" name="fecha-llegada" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Salida *</label>
+                            <input type="date" name="fecha-salida" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Adultos *</label>
+                            <input type="number" name="adultos" min="1" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Niños</label>
+                            <input type="number" name="ninos" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination Selection -->
+                <div class="form-section">
+                    <h3>📍 Selección de Destino</h3>
+                    <div class="form-group">
+                        <label>Provincia a Visitar *</label>
+                        <select name="provincia" required onchange="updateDestinationOptions(this.value)">
+                            <option value="">Seleccione una provincia</option>
+                            <option value="la-altagracia">La Altagracia (Punta Cana)</option>
+                            <option value="puerto-plata">Puerto Plata</option>
+                            <option value="samana">Samaná</option>
+                            <option value="santo-domingo">Santo Domingo</option>
+                            <option value="la-romana">La Romana</option>
+                            <option value="barahona">Barahona</option>
+                            <option value="santiago">Santiago</option>
+                            <option value="la-vega">La Vega</option>
+                        </select>
+                    </div>
+                    
+                    <div id="destination-options" class="hidden">
+                        <div class="form-group">
+                            <label>Selecciona Hoteles/Resorts</label>
+                            <select name="hoteles" id="hotel-select" multiple size="5">
+                                <option value="">Seleccione primero una provincia</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Playas a Visitar</label>
+                            <select name="playas" id="playa-select" multiple size="4">
+                                <option value="">Seleccione primero una provincia</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Restaurantes</label>
+                            <select name="restaurantes" id="restaurante-select" multiple size="4">
+                                <option value="">Seleccione primero una provincia</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Museos y Atracciones</label>
+                            <select name="museos" id="museo-select" multiple size="4">
+                                <option value="">Seleccione primero una provincia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transportation Services -->
+                <div class="form-section">
+                    <h3>🚗 Servicios de Transporte</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="checkbox-item" style="justify-content: center;">
+                                <input type="checkbox" id="taxi" name="taxi">
+                                <label for="taxi">Necesito Servicio de Taxi/Transfer</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-item" style="justify-content: center;">
+                                <input type="checkbox" id="alquiler" name="alquiler">
+                                <label for="alquiler">Necesito Alquiler de Vehículo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Días Estimados de Transporte</label>
+                        <input type="number" name="dias-transporte" min="1" placeholder="Número de días">
+                    </div>
+                </div>
+
+                <!-- Budget -->
+                <div class="form-section">
+                    <h3>💰 Presupuesto</h3>
+                    <div class="form-group">
+                        <label>Presupuesto Estimado Total (USD) *</label>
+                        <select name="presupuesto" required>
+                            <option value="">Seleccione</option>
+                            <option value="500-1500">$500 - $1,500</option>
+                            <option value="1500-3000">$1,500 - $3,000</option>
+                            <option value="3000-5000">$3,000 - $5,000</option>
+                            <option value="5000-8000">$5,000 - $8,000</option>
+                            <option value="8000+">$8,000+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">🌴 Completar Reservación 🌴</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>TravelLink - All In One</strong></p>
+        <p>🌴 Todo lo que necesitas para tu viaje en un solo lugar 🌴</p>
+        <p>📞 +1 (849) 404-9375 | ✉️ travelinksrl@gmail.com</p>
+        <p>💬 WhatsApp: +1 (849) 404-9375</p>
+        <p>© 2024 TravelLink All In One. República Dominicana</p>
+    </footer>
+
+    <script>
+        // Province data with real updated prices
+        const provinceData = {
+            'la-altagracia': {
+                playas: [
+                    {name: 'Playa Bávaro', img : 'playa-bavaro.jpg', desc: 'Playa icónica con arena blanca y resorts de lujo', price: 'Acceso gratuito'},
+                    {name: 'Playa Punta Cana', img: 'punta-cana-beach.jpeg', desc: 'Aguas cristalinas perfectas para deportes acuáticos', price: 'Acceso gratuito'},
+                    {name: 'Playa Macao', img: 'playa-macao.webp', desc: 'Playa pública con olas perfectas para surfear', price: 'Acceso gratuito'},
+                    {name: 'Playa Juanillo', img: 'playa-juanillo.jpg', desc: 'Playa tranquila ideal para familias', price: 'Acceso gratuito'}
+                ],
+                hoteles: [
+                    {name: 'Hard Rock Hotel & Casino Punta Cana', img: 'hotel-hard-rock-punta-cana.jpg', desc: 'Resort todo incluido con casino', price: '$350-600/noche'},
+                    {name: 'Barceló Bávaro Grand Resort', img: 'hotel-barcelo-bavaro.jpg', desc: 'Complejo familiar con múltiples piscinas', price: '$280-450/noche'},
+                    {name: 'Excellence Punta Cana', img: 'hotel-excellence-punta-cana.jpg', desc: 'Solo adultos, lujo todo incluido', price: '$400-700/noche'},
+                    {name: 'Royalton Punta Cana', img: 'hotel-royalton-punta-cana.jpg', desc: 'Resort moderno frente al mar', price: '$320-550/noche'},
+                    {name: 'Dreams Macao Beach', img: 'hotel-dreams-macao.jpg', desc: 'Resort boutique en playa pública', price: '$380-650/noche'}
+                ],
+                restaurantes: [
+                    {name: 'Passion by Martín Berasategui', img: 'restaurante-passion.jpg', desc: 'Alta cocina con estrella Michelin', price: '$85-150/persona'},
+                    {name: 'La Yola Restaurant', img: 'restaurante-la-yola.webp', desc: 'Mariscos frescos frente al mar', price: '$45-80/persona'},
+                    {name: 'Jellyfish Restaurant', img: 'restaurante-jellyfish.webp', desc: 'Cocina caribeña contemporánea', price: '$50-90/persona'},
+                    {name: 'Captain Cook Restaurant', img: 'restaurante-captain-cook.webp', desc: 'Pescados y mariscos locales', price: '$35-65/persona'}
+                ],
+                museos: [
+                    {name: 'Indigenous Eyes Ecological Park', img: 'parque-indigenous-eyes.jpeg', desc: 'Reserva ecológica con lagunas naturales', price: '$25-35/persona'},
+                    {name: 'Manatí Park', img: 'manati-park.jpg', desc: 'Parque temático con delfines', price: '$45-65/persona'},
+                    {name: 'Chocomuseo Punta Cana', img: 'chocomuseo-punta-cana.webp', desc: 'Museo del chocolate y cacao', price: '$15-25/persona'},
+                    {name: 'Sirenis Aquagames', img: 'sirenis-aquagames.jpg', desc: 'Parque acuático familiar', price: '$35-50/persona'}
+                ]
+            },
+            'puerto-plata': {
+                playas: [
+                    {name: 'Playa Dorada', img: 'playa-dorada.jpg', desc: 'Arena dorada con complejo turístico', price: 'Acceso gratuito'},
+                    {name: 'Playa Sosúa', img: 'playa-sosua.jpg', desc: 'Perfecta para snorkeling y buceo', price: 'Acceso gratuito'},
+                    {name: 'Playa Cabarete', img: 'playa-cabarete.jpg', desc: 'Capital del windsurf y kitesurf', price: 'Acceso gratuito'},
+                    {name: 'Playa Cofresí', img: 'playa-cofresi.jpg', desc: 'Playa familiar tranquila', price: 'Acceso gratuito'}
+                ],
+                hoteles: [
+                    {name: 'Lifestyle Holidays Vacation Resort', img: 'hotel-lifestyle-puerto-plata.jpg', desc: 'Mega resort todo incluido', price: '$250-420/noche'},
+                    {name: 'Casa Colonial Beach & Spa', img: 'hotel-casa-colonial.jpg', desc: 'Boutique hotel colonial', price: '$180-320/noche'},
+                    {name: 'BlueBay Villas Doradas', img: 'hotel-bluebay-doradas.jpg', desc: 'Solo adultos frente a Playa Dorada', price: '$200-350/noche'},
+                    {name: 'Sunscape Puerto Plata', img: 'hotel-sunscape-puerto-plata.jpg', desc: 'Resort familiar todo incluido', price: '$220-380/noche'}
+                ],
+                restaurantes: [
+                
+            
+                    {name: 'On The Waterfront', img: 'restaurante-waterfront.webp', desc: 'Mariscos y ambiente caribeño', price: '$30-55/persona'},
+                    {name: 'El Batey Bar', img: 'restaurante-el-batey.jpg', desc: 'Bar icónico con ambiente local', price: '$15-30/persona'}
+                ],
+                museos: [
+                    {name: 'Teleférico Puerto Plata', img: 'teleferico-puerto-plata.jpg', desc: 'Vista panorámica desde Pico Isabel de Torres', price: '$10-15/persona'},
+                    {name: 'Ocean World Adventure Park', img: 'ocean-world.jpg', desc: 'Interacción con delfines y leones marinos', price: '$95-150/persona'},
+                    {name: '27 Charcos de Damajagua', img: '27-charcos-damajagua.jpg', desc: 'Cascadas naturales para aventura', price: '$45-65/persona'},
+                    {name: 'Fortaleza San Felipe', img: 'fortaleza-san-felipe.jpeg', desc: 'Fortificación histórica colonial', price: '$3-5/persona'}
+                ]
+            },
+            'samana': {
+                playas: [
+                    {name: 'Playa Rincón', img: 'playa-rincon.jpg', desc: 'Una de las playas más hermosas del mundo', price: 'Acceso gratuito'},
+                    {name: 'Cayo Levantado', img: 'cayo-levantado.jpg', desc: 'Isla paradisíaca Bacardi', price: '$25-40 (tour en bote)'},
+                    {name: 'Playa Frontón', img: 'playa-fronton.jpg', desc: 'Playa aislada con formaciones rocosas', price: '$30-50 (tour en bote)'},
+                    {name: 'Playa Cosón', img: 'playa-coson.jpg', desc: 'Playa virgen de arena blanca', price: 'Acceso gratuito'}
+                ],
+                hoteles: [
+                    {name: 'Sublime Samana', img: 'hotel-sublime-samana.jpg', desc: 'Boutique eco-resort de lujo', price: '$450-800/noche'},
+                    {name: 'Bahia Principe Grand El Portillo', img: 'hotel-bahia-principe-portillo.webp', desc: 'Todo incluido frente a la playa', price: '$280-480/noche'},
+                    {name: 'The Bannister Hotel', img: 'hotel-bannister-samana.png', desc: 'Hotel boutique con marina', price: '$220-400/noche'},
+                    {name: 'Villa Serena Hotel', img: 'hotel-villa-serena.jpg', desc: 'Hotel acogedor estilo caribeño', price: '$150-280/noche'}
+                ],
+                restaurantes: [
+                    {name: 'La Hacienda Restaurant', img: 'restaurante-la-hacienda-samana.jpg', desc: 'Cocina dominicana tradicional', price: '$25-45/persona'},
+                    {name: 'El Cabito Restaurant', img: 'restaurante-el-cabito.jpg', desc: 'Mariscos frescos en Las Galeras', price: '$30-55/persona'},
+                    {name: 'Le Café de Paris', img: 'restaurante-cafe-paris-samana.jpg', desc: 'Cocina francesa caribeña', price: '$35-65/persona'},
+                    {name: 'La Yuca Caliente', img: 'restaurante-yuca-caliente.jpg', desc: 'Comida local auténtica', price: '$20-35/persona'}
+                ],
+                museos: [
+                    {name: 'Avistamiento de Ballenas', img: 'avistamiento-ballenas-samana.jpeg', desc: 'Tour para ver ballenas jorobadas (Enero-Marzo)', price: '$75-120/persona'},
+                    {name: 'Salto del Limón', img: 'salto-limon.jpeg', desc: 'Cascada de 40 metros en la selva', price: '$35-55/persona'},
+                    {name: 'Parque Nacional Los Haitises', img: 'parque-los-haitises.jpg', desc: 'Manglares y cuevas taínas', price: '$60-95/persona'},
+                    {name: 'Centro Ecológico Samaná', img: 'centro-ecologico-samana.jpg', desc: 'Educación ambiental y conservación', price: '$10-20/persona'}
+                ]
+            },
+            'santo-domingo': {
+                playas: [
+                    {name: 'Playa Boca Chica', img: 'boca-chica-beach.jpeg', desc: 'Playa cerca de la capital, ideal familias', price: 'Acceso gratuito'},
+                    {name: 'Playa Juan Dolio', img: 'playa-juan-dolio.jpg', desc: 'Playa tranquila cerca de Santo Domingo', price: 'Acceso gratuito'},
+                    {name: 'Playa Guayacanes', img: 'playa-guayacanes.jpg', desc: 'Playa local popular', price: 'Acceso gratuito'}
+                ],
+                hoteles: [
+                    {name: 'JW Marriott Santo Domingo', img: 'hotel-jw-marriott-sd.jpg', desc: 'Lujo moderno en la capital', price: '$180-320/noche'},
+                    {name: 'Hodelpa Nicolás de Ovando', img: 'hotel-nicolas-ovando.jpg', desc: 'Hotel boutique en edificio colonial', price: '$150-280/noche'},
+                    {name: 'Renaissance Santo Domingo Jaragua', img: 'hotel-renaissance-jaragua.avif', desc: 'Resort urbano con casino', price: '$160-290/noche'},
+                    {name: 'Sheraton Santo Domingo', img: 'hotel-sheraton-sd.jpg', desc: 'Hotel ejecutivo moderno', price: '$140-260/noche'}
+                ],
+                restaurantes: [
+                    {name: 'Pat e Palo', img: 'restaurante-pat-e-palo.jpg', desc: 'Cocina europea en la Zona Colonial', price: '$40-75/persona'},
+                    {name: 'La Résidence', img: 'restaurante-la-residence.jpg', desc: 'Alta cocina francesa', price: '$60-110/persona'},
+                    {name: 'Mesón de la Cava', img: 'restaurante-meson-cava.jpg', desc: 'Restaurante único en una cueva natural', price: '$45-85/persona'},
+                    {name: 'Adrian Tropical', img: 'restaurante-adrian-tropical.jpg', desc: 'Mariscos frente al Malecón', price: '$25-50/persona'}
+                ],
+                museos: [
+                    {name: 'Zona Colonial', img: 'zona-colonial-sd.jpg', desc: 'Primera ciudad del Nuevo Mundo - Patrimonio UNESCO', price: 'Gratis (caminata), tours $20-40'},
+                    {name: 'Los Tres Ojos', img: 'cueva-tres-ojos.avif', desc: 'Cavernas con lagos subterráneos', price: '$5-8/persona'},
+                    {name: 'Alcázar de Colón', img: 'alcazar-colon.webp', desc: 'Palacio del hijo de Cristóbal Colón', price: '$3-5/persona'},
+                    {name: 'Museo del Hombre Dominicano', img: 'museo-hombre-dominicano.jpg', desc: 'Historia y cultura taína', price: '$2-4/persona'},
+                    {name: 'Faro a Colón', img: 'faro-colon.webp', desc: 'Monumento y museo', price: '$2-4/persona'}
+                ]
+            },
+            'la-romana': {
+                playas: [
+                    {name: 'Playa Minitas', img: 'playa-minitas.jpeg', desc: 'Playa privada de Casa de Campo', price: 'Acceso con membresía/hospedaje'},
+                    {name: 'Playa Bayahibe', img: 'playa-bayahibe.jpeg', desc: 'Pueblo costero con playa hermosa', price: 'Acceso gratuito'},
+                    {name: 'Playa Dominicus', img: 'playa-dominicus.jpg', desc: 'Arena blanca y aguas claras', price: 'Acceso gratuito'}
+                ],
+                hoteles: [
+                    {name: 'Casa de Campo Resort', img: 'hotel-casa-de-campo.jpg', desc: 'Resort ultra lujoso con golf', price: '$450-900/noche'},
+                    {name: 'Dreams Dominicus La Romana', img: 'hotel-dreams-dominicus.jpg', desc: 'Todo incluido de lujo', price: '$320-580/noche'},
+                    {name: 'Catalonia La Romana', img: 'hotel-catalonia-romana.webp', desc: 'Resort todo incluido', price: '$250-450/noche'},
+                    {name: 'Hilton La Romana Family Resort', img: 'hotel-hilton-romana.jpg', desc: 'Resort familiar todo incluido', price: '$280-510/noche'}
+                ],
+                restaurantes: [
+                    {name: 'Onno\'s Bar & Grill', img: 'restaurante-onnos.jpg', desc: 'Ambiente relajado frente al mar', price: '$30-60/persona'},
+                    {name: 'La Casita', img: 'restaurante-la-casita-romana.webp', desc: 'Cocina caribeña', price: '$35-65/persona'},
+                    {name: 'Peperoni', img: 'restaurante-peperoni-romana.jpg', desc: 'Cocina italiana auténtica', price: '$40-75/persona'},
+                    {name: 'La Piazzetta', img: 'restaurante-piazzetta.jpg', desc: 'Pizza y pasta artesanal', price: '$25-50/persona'}
+                ],
+                museos: [
+                    {name: 'Altos de Chavón', img: 'altos-de-chavon.jpg', desc: 'Villa mediterránea recreada con anfiteatro', price: '$10-15/persona'},
+                    {name: 'Isla Saona', img: 'isla-saona.jpg', desc: 'Excursión a isla paradisíaca', price: '$75-120/persona'},
+                    {name: 'Cueva de las Maravillas', img: 'cueva-maravillas.jpeg', desc: 'Cuevas con arte rupestre taíno', price: '$8-12/persona'},
+                    {name: 'Golf Teeth of the Dog', img: 'golf-teeth-dog.webp', desc: 'Campo de golf diseñado por Pete Dye', price: '$250-400/ronda'}
+                ]
+            },
+            'barahona': {
+                playas: [
+                    {name: 'Bahía de las Águilas', img: 'bahia-las-aguilas.avif', desc: 'Playa virgen más hermosa del Caribe', price: '$50-80 (tour)'},
+                    {name: 'Playa San Rafael', img: 'playa-san-rafael.jpg', desc: 'Playa con piscina natural de agua dulce', price: 'Acceso gratuito'},
+                    {name: 'Los Patos Beach', img: 'playa-los-patos.jpg', desc: 'Río que desemboca en el mar', price: 'Acceso gratuito'}
+                ],
+                hoteles: [
+                    {name: 'Casa Bonita Tropical Lodge', img: 'hotel-casa-bonita.jpg', desc: 'Eco-lodge con vista al mar', price: '$120-220/noche'},
+                    {name: 'Hotel Costa Larimar', img: 'hotel-costa-larimar.jpg', desc: 'Hotel frente al mar', price: '$80-150/noche'},
+                    {name: 'Playazul Hotel', img: 'hotel-playaazul.jpg', desc: 'Hotel económico cerca de la playa', price: '$60-110/noche'}
+                ],
+                restaurantes: [
+                    {name: 'Brisas del Caribe', img: 'restaurante-brisas-caribe.jpg', desc: 'Mariscos y comida criolla', price: '$20-40/persona'},
+                    {name: 'El Quemaito', img: 'restaurante-el-quemaito.jpg', desc: 'Bar-restaurante local popular', price: '$15-30/persona'},
+                    {name: 'Rocamar Restaurant', img: 'restaurante-rocamar.jpg', desc: 'Cocina dominicana tradicional', price: '$18-35/persona'}
+                ],
+                museos: [
+                    {name: 'Laguna de Oviedo', img: 'laguna-oviedo.avif', desc: 'Lago salado con flamencos rosados', price: '$40-60/persona (tour)'},
+                    {name: 'Polo Magnético', img: 'polo-magnetico.jpg', desc: 'Fenómeno óptico curioso', price: 'Acceso gratuito'},
+                    {name: 'Minas de Larimar', img: 'minas-larimar.jpg', desc: 'Tour por minas de piedra semi-preciosa', price: '$30-50/persona'},
+                    {name: 'Parque Nacional Jaragua', img: 'parque-jaragua.jpg', desc: 'Reserva natural protegida', price: '$25-40/persona'}
+                ]
+            },
+            'santiago': {
+                playas: [],
+                hoteles: [
+                    {name: 'Hodelpa Gran Almirante', img: 'hodelpa-gran-almirante.jpeg', desc: 'Hotel casino de lujo', price: '$100-180/noche'},
+                    {name: 'Hodelpa Centro Plaza', img: 'hotel-centro-plaza.jpg', desc: 'Hotel ejecutivo céntrico', price: '$80-150/noche'},
+                    {name: 'Hotel Matum', img: 'hotel-matum.jpg', desc: 'Hotel boutique moderno', price: '$70-130/noche'},
+                    {name: 'Camp David Ranch', img: 'camp-david-ranch.webp', desc: 'Resort campestre', price: '$90-160/noche'}
+                ],
+                restaurantes: [
+                    {name: 'Il Pasticcio', img: 'restaurante-il-pasticcio.jpg', desc: 'Cocina italiana gourmet', price: '$35-70/persona'},
+                    {name: 'Kukaramákara', img: 'restaurante-kukaramakara.jpg', desc: 'Cocina dominicana moderna', price: '$30-60/persona'},
+                    {name: 'Pez Dorado', img: 'restaurante-pez-dorado.webp', desc: 'Mariscos y cocina asiática', price: '$40-75/persona'},
+                    
+                ],
+                museos: [
+                    {name: 'Monumento a los Héroes de la Restauración', img: 'monumento-santiago.jpg', desc: 'Icónico monumento con vista panorámica', price: '$2-3/persona'},
+                    {name: 'Centro León', img: 'centro-leon.jpg', desc: 'Museo de arte y cultura dominicana', price: '$5-8/persona'},
+                    {name: 'Fortaleza San Luis', img: 'fortaleza-san-luis.jpg', desc: 'Fortificación histórica', price: '$3-5/persona'},
+                    {name: 'Gran Teatro del Cibao', img: 'gran-teatro-cibao.jpg', desc: 'Teatro moderno para eventos culturales', price: 'Varía según evento'},
+                    {name: 'Fábrica de Tabacos', img: 'fabrica-tabacos-santiago.jpg', desc: 'Tour por fábrica de puros', price: '$15-25/persona'}
+                ]
+            },
+            'la-vega': {
+                playas: [],
+                hoteles: [
+                    {name: 'Hotel Renacer', img: 'hotel-renacer.jpg', desc: 'Hotel asequible', price: '$90-170/noche'},
+                    {name: 'Villa Vega', img: 'villa-vega.jpg', desc: 'Villa montañera', price: '$70-140/noche'},
+                    {name: 'Jarabacoa River Club', img: 'jarabacoa-river-club.jpg', desc: 'Resort de aventura', price: '$80-150/noche'}
+                ],
+                restaurantes: [
+                    {name: 'Aroma de la Montaña', img: 'restaurante-aroma-montana.jpg', desc: 'Cocina criolla de montaña', price: '$20-40/persona'},
+                    {name: 'El Rancho Restaurant', img: 'restaurante-el-rancho-vega.jpeg', desc: 'Comida típica dominicana', price: '$18-35/persona'},
+                    
+                ],
+                museos: [
+                    {name: 'Carnaval de La Vega', img: 'carnaval-la-vega.jpg', desc: 'Celebración cultural más antigua del continente (Febrero)', price: 'Gratis (calle)'},
+                    {name: 'Salto de Jimenoa', img: 'salto-jimenoa.jpg', desc: 'Cascada espectacular de 40 metros', price: '$5-10/persona'},
+                    {name: 'Salto Baiguate', img: 'salto-baiguate.jpg', desc: 'Cascada con piscina natural', price: '$5-10/persona'},
+                    {name: 'Pico Duarte', img: 'pico-duarte.jpg', desc: 'Montaña más alta del Caribe', price: '$80-150/persona (tour guiado)'},
+                    {name: 'Rafting en Río Yaque del Norte', img: 'rafting-yaque.png', desc: 'Aventura en rápidos', price: '$50-80/persona'}
+                ]
+            }
+        };
+
+        function showProvince(provinceId) {
+            const province = provinceData[provinceId];
+            const container = document.getElementById('province-details-container');
+            
+            let html = `<div class="province-details active">
+                <h2 style="text-align: center; color: var(--ocean); font-size: 2.5rem; margin-bottom: 2rem;">
+                    ${provinceId === 'la-altagracia' ? '🏖️ La Altagracia' : 
+                      provinceId === 'puerto-plata' ? '🌊 Puerto Plata' :
+                      provinceId === 'samana' ? '🐋 Samaná' :
+                      provinceId === 'santo-domingo' ? '🏛️ Santo Domingo' :
+                      provinceId === 'la-romana' ? '⛳ La Romana' :
+                      provinceId === 'barahona' ? '🏞️ Barahona' :
+                      provinceId === 'santiago' ? '🏙️ Santiago' :
+                      provinceId === 'la-vega' ? '🎭 La Vega' : ''}
+                </h2>`;
+
+            // Playas
+            if (province.playas && province.playas.length > 0) {
+                html += `<h3 style="color: var(--primary); font-size: 2rem; margin: 2rem 0 1rem;">🏖️ Playas</h3>
+                         <div class="details-grid">`;
+                province.playas.forEach(playa => {
+                    html += `<div class="detail-card">
+                        <img src="imagenes/${playa.img}" alt="${playa.name}" class="detail-image">
+                        <div class="detail-content">
+                            <h4>${playa.name}</h4>
+                            <p class="price">${playa.price}</p>
+                            <p>${playa.desc}</p>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+
+            // Hoteles
+            html += `<h3 style="color: var(--primary); font-size: 2rem; margin: 2rem 0 1rem;">🏨 Hoteles y Resorts</h3>
+                     <div class="details-grid">`;
+            province.hoteles.forEach(hotel => {
+                html += `<div class="detail-card">
+                    <img src="imagenes/${hotel.img}" alt="${hotel.name}" class="detail-image">
+                    <div class="detail-content">
+                        <h4>${hotel.name}</h4>
+                        <p class="price">${hotel.price}</p>
+                        <p>${hotel.desc}</p>
+                    </div>
+                </div>`;
+            });
+            html += `</div>`;
+
+            // Restaurantes
+            html += `<h3 style="color: var(--primary); font-size: 2rem; margin: 2rem 0 1rem;">🍽️ Restaurantes</h3>
+                     <div class="details-grid">`;
+            province.restaurantes.forEach(rest => {
+                html += `<div class="detail-card">
+                    <img src="imagenes/${rest.img}" alt="${rest.name}" class="detail-image">
+                    <div class="detail-content">
+                        <h4>${rest.name}</h4>
+                        <p class="price">${rest.price}</p>
+                        <p>${rest.desc}</p>
+                    </div>
+                </div>`;
+            });
+            html += `</div>`;
+
+            // Museos y Atracciones
+            html += `<h3 style="color: var(--primary); font-size: 2rem; margin: 2rem 0 1rem;">🎭 Museos y Atracciones</h3>
+                     <div class="details-grid">`;
+            province.museos.forEach(museo => {
+                html += `<div class="detail-card">
+                    <img src="imagenes/${museo.img}" alt="${museo.name}" class="detail-image">
+                    <div class="detail-content">
+                        <h4>${museo.name}</h4>
+                        <p class="price">${museo.price}</p>
+                        <p>${museo.desc}</p>
+                    </div>
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            container.innerHTML = html;
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function updateDestinationOptions(province) {
+            const destDiv = document.getElementById('destination-options');
+            if (!province) {
+                destDiv.classList.add('hidden');
+                return;
+            }
+
+            destDiv.classList.remove('hidden');
+            const data = provinceData[province];
+
+            // Hoteles
+            const hotelSelect = document.getElementById('hotel-select');
+            hotelSelect.innerHTML = data.hoteles.map(h => 
+                `<option value="${h.name} - ${h.price}">${h.name} - ${h.price}</option>`
+            ).join('');
+
+            // Playas
+            const playaSelect = document.getElementById('playa-select');
+            if (data.playas && data.playas.length > 0) {
+                playaSelect.innerHTML = data.playas.map(p => 
+                    `<option value="${p.name} - ${p.price}">${p.name} - ${p.price}</option>`
+                ).join('');
+            } else {
+                playaSelect.innerHTML = '<option value="">No hay playas en esta provincia</option>';
+            }
+
+            // Restaurantes
+            const restSelect = document.getElementById('restaurante-select');
+            restSelect.innerHTML = data.restaurantes.map(r => 
+                `<option value="${r.name} - ${r.price}">${r.name} - ${r.price}</option>`
+            ).join('');
+
+            // Museos
+            const museoSelect = document.getElementById('museo-select');
+            museoSelect.innerHTML = data.museos.map(m => 
+                `<option value="${m.name} - ${m.price}">${m.name} - ${m.price}</option>`
+            ).join('');
+        }
+
+        function handleBooking(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Obtener aerolíneas seleccionadas
+            const aerolineas = Array.from(form.querySelectorAll('input[name="aerolinea"]:checked'))
+                .map(cb => cb.value)
+                .join(', ');
+            
+            // Obtener selecciones múltiples
+            const hoteles = Array.from(form.querySelector('#hotel-select').selectedOptions)
+                .map(opt => opt.value)
+                .join(', ');
+            
+            const playas = Array.from(form.querySelector('#playa-select').selectedOptions)
+                .map(opt => opt.value)
+                .join(', ');
+            
+            const restaurantes = Array.from(form.querySelector('#restaurante-select').selectedOptions)
+                .map(opt => opt.value)
+                .join(', ');
+            
+            const museos = Array.from(form.querySelector('#museo-select').selectedOptions)
+                .map(opt => opt.value)
+                .join(', ');
+            
+            // Crear mensaje para WhatsApp
+            let mensaje = `🌴 *NUEVA RESERVACIÓN - TRAVELLINK ALL IN ONE* 🌴\n\n`;
+            mensaje += `📋 *INFORMACIÓN PERSONAL*\n`;
+            mensaje += `Nombre: ${formData.get('nombre')} ${formData.get('apellido')}\n`;
+            mensaje += `Documento: ${formData.get('documento')}\n`;
+            mensaje += `Email: ${formData.get('email')}\n`;
+            mensaje += `Teléfono: ${formData.get('telefono')}\n`;
+            mensaje += `País de Origen: ${formData.get('pais')}\n\n`;
+            
+            mensaje += `✈️ *INFORMACIÓN DE VUELO*\n`;
+            mensaje += `Aerolínea(s): ${aerolineas || 'No especificada'}\n`;
+            mensaje += `Fecha Llegada: ${formData.get('fecha-llegada')}\n`;
+            mensaje += `Fecha Salida: ${formData.get('fecha-salida')}\n`;
+            mensaje += `Adultos: ${formData.get('adultos')}\n`;
+            mensaje += `Niños: ${formData.get('ninos')}\n\n`;
+            
+            mensaje += `📍 *DESTINO Y SELECCIONES*\n`;
+            mensaje += `Provincia: ${formData.get('provincia')}\n`;
+            mensaje += `Hoteles Seleccionados: ${hoteles || 'Ninguno'}\n`;
+            mensaje += `Playas a Visitar: ${playas || 'Ninguna'}\n`;
+            mensaje += `Restaurantes: ${restaurantes || 'Ninguno'}\n`;
+            mensaje += `Museos/Atracciones: ${museos || 'Ninguno'}\n\n`;
+            
+            mensaje += `🚗 *SERVICIOS DE TRANSPORTE*\n`;
+            mensaje += `Taxi/Transfer: ${formData.get('taxi') ? 'Sí' : 'No'}\n`;
+            mensaje += `Alquiler de Vehículo: ${formData.get('alquiler') ? 'Sí' : 'No'}\n`;
+            mensaje += `Días de Transporte: ${formData.get('dias-transporte') || 'No especificado'}\n\n`;
+            
+            mensaje += `💰 *PRESUPUESTO*\n`;
+            mensaje += `Presupuesto Estimado: ${formData.get('presupuesto')}\n\n`;
+            
+            mensaje += `📧 Para más información: travelinksrl@gmail.com\n`;
+            mensaje += `🌐 www.travellink-allinone.com`;
+            
+            // Codificar mensaje para URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Número de WhatsApp (formato internacional sin + ni espacios)
+            const numeroWhatsApp = '18494049375';
+            
+            // Crear URL de WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+            
+            // Abrir WhatsApp en nueva ventana
+            window.open(urlWhatsApp, '_blank');
+            
+            // Mostrar mensaje de confirmación
+            alert('¡Gracias por tu reservación! Serás redirigido a WhatsApp para completar tu solicitud. También puedes contactarnos en: travelinksrl@gmail.com');
+            
+            return false;
+        }
+
+        // Smooth scroll para navegación
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
