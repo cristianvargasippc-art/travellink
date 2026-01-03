@@ -402,6 +402,223 @@
             display: none;
         }
 
+        /* CHATBOT STYLES */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+        }
+
+        .chatbot-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(0, 188, 212, 0.5);
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 40px rgba(0, 188, 212, 0.7);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.bot {
+            align-items: flex-start;
+        }
+
+        .message.user {
+            align-items: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 1rem;
+            border-radius: 15px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+        .message.bot .message-bubble {
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            color: white;
+        }
+
+        .message.user .message-bubble {
+            background: var(--sand);
+            color: var(--dark);
+        }
+
+        .info-section {
+            margin: 0.8rem 0;
+        }
+
+        .info-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .info-item {
+            padding: 0.3rem 0;
+            padding-left: 1rem;
+            display: block;
+        }
+
+        .info-highlight {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+
+        .chatbot-quick-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quick-option {
+            background: white;
+            color: var(--ocean);
+            border: 2px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .quick-option:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .chatbot-input-area {
+            padding: 1rem;
+            background: white;
+            border-top: 2px solid var(--sand);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .chatbot-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .chatbot-send {
+            background: linear-gradient(135deg, var(--primary), var(--ocean));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-send:hover {
+            transform: scale(1.1);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .brand-title {
@@ -423,6 +640,94 @@
 
             .section-title {
                 font-size: 2.5rem;
+            }
+
+            .chatbot-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+                height: 500px;
+            }
+
+            .chatbot-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-image {
+                height: 250px;
+            }
+
+            .province-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-title {
+                font-size: 2.5rem;
+            }
+
+            .brand-subtitle {
+                font-size: 1.2rem;
+                letter-spacing: 3px;
+            }
+
+            .logo-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .province-card {
+                padding: 1.5rem;
+            }
+
+            .province-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .detail-content h4 {
+                font-size: 1.2rem;
+            }
+
+            .price {
+                font-size: 1.2rem;
+            }
+
+            .chatbot-window {
+                bottom: 80px;
+                height: 450px;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
             }
         }
     </style>
@@ -563,7 +868,7 @@
                 <div class="form-section">
                     <h3>✈️ Información de Vuelo</h3>
                     <div class="form-group">
-                        <label>Selecciona tu Aerolínea *</label>
+                        <label>Selecciona tu Aerolínea(s) *</label>
                         <div class="checkbox-grid">
                             <div class="checkbox-item">
                                 <input type="checkbox" id="american" name="aerolinea" value="American Airlines">
@@ -653,51 +958,66 @@
                     </div>
                 </div>
 
-                <!-- Destination Selection -->
+                <!-- Destination Selection - MÚLTIPLE -->
                 <div class="form-section">
                     <h3>📍 Selección de Destino</h3>
                     <div class="form-group">
-                        <label>Provincia a Visitar *</label>
-                        <select name="provincia" required onchange="updateDestinationOptions(this.value)">
-                            <option value="">Seleccione una provincia</option>
-                            <option value="la-altagracia">La Altagracia (Punta Cana)</option>
-                            <option value="puerto-plata">Puerto Plata</option>
-                            <option value="samana">Samaná</option>
-                            <option value="santo-domingo">Santo Domingo</option>
-                            <option value="la-romana">La Romana</option>
-                            <option value="barahona">Barahona</option>
-                            <option value="santiago">Santiago</option>
-                            <option value="la-vega">La Vega</option>
-                        </select>
+                        <label>Provincias a Visitar * (puedes seleccionar múltiples)</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-la-altagracia" name="provincia" value="la-altagracia" onchange="updateMultipleDestinations()">
+                                <label for="prov-la-altagracia">🏖️ La Altagracia</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-puerto-plata" name="provincia" value="puerto-plata" onchange="updateMultipleDestinations()">
+                                <label for="prov-puerto-plata">🌊 Puerto Plata</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-samana" name="provincia" value="samana" onchange="updateMultipleDestinations()">
+                                <label for="prov-samana">🐋 Samaná</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-santo-domingo" name="provincia" value="santo-domingo" onchange="updateMultipleDestinations()">
+                                <label for="prov-santo-domingo">🏛️ Santo Domingo</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-la-romana" name="provincia" value="la-romana" onchange="updateMultipleDestinations()">
+                                <label for="prov-la-romana">⛳ La Romana</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-barahona" name="provincia" value="barahona" onchange="updateMultipleDestinations()">
+                                <label for="prov-barahona">🏞️ Barahona</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-santiago" name="provincia" value="santiago" onchange="updateMultipleDestinations()">
+                                <label for="prov-santiago">🏙️ Santiago</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prov-la-vega" name="provincia" value="la-vega" onchange="updateMultipleDestinations()">
+                                <label for="prov-la-vega">🎭 La Vega</label>
+                            </div>
+                        </div>
                     </div>
                     
                     <div id="destination-options" class="hidden">
                         <div class="form-group">
-                            <label>Selecciona Hoteles/Resorts</label>
-                            <select name="hoteles" id="hotel-select" multiple size="5">
-                                <option value="">Seleccione primero una provincia</option>
-                            </select>
+                            <label>Selecciona Hoteles/Resorts (múltiples opciones)</label>
+                            <div class="checkbox-grid" id="hotel-checkboxes"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Playas a Visitar</label>
-                            <select name="playas" id="playa-select" multiple size="4">
-                                <option value="">Seleccione primero una provincia</option>
-                            </select>
+                            <label>Playas a Visitar (múltiples opciones)</label>
+                            <div class="checkbox-grid" id="playa-checkboxes"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Restaurantes</label>
-                            <select name="restaurantes" id="restaurante-select" multiple size="4">
-                                <option value="">Seleccione primero una provincia</option>
-                            </select>
+                            <label>Restaurantes (múltiples opciones)</label>
+                            <div class="checkbox-grid" id="restaurante-checkboxes"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Museos y Atracciones</label>
-                            <select name="museos" id="museo-select" multiple size="4">
-                                <option value="">Seleccione primero una provincia</option>
-                            </select>
+                            <label>Museos y Atracciones (múltiples opciones)</label>
+                            <div class="checkbox-grid" id="museo-checkboxes"></div>
                         </div>
                     </div>
                 </div>
@@ -755,12 +1075,40 @@
         <p>© 2024 TravelLink All In One. República Dominicana</p>
     </footer>
 
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-button" onclick="toggleChatbot()">💬</button>
+        <div class="chatbot-window" id="chatbot">
+            <div class="chatbot-header">
+                <h3>🌴 Asistente TravelLink</h3>
+                <button class="chatbot-close" onclick="toggleChatbot()">✕</button>
+            </div>
+            <div class="chatbot-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-bubble">
+                        ¡Hola! 👋 Soy tu asistente virtual de TravelLink. ¿En qué puedo ayudarte hoy?
+                    </div>
+                    <div class="chatbot-quick-options">
+                        <button class="quick-option" onclick="askQuestion('¿Qué provincias puedo visitar?')">📍 Provincias</button>
+                        <button class="quick-option" onclick="askQuestion('¿Cuáles son los precios?')">💰 Precios</button>
+                        <button class="quick-option" onclick="askQuestion('¿Cómo hacer una reservación?')">✈️ Reservar</button>
+                        <button class="quick-option" onclick="askQuestion('Información de contacto')">📞 Contacto</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" class="chatbot-input" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="handleChatEnter(event)">
+                <button class="chatbot-send" onclick="sendMessage()">📤</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Province data with real updated prices
+        // Province data with real updated prices (DATOS COMPLETOS)
         const provinceData = {
             'la-altagracia': {
                 playas: [
-                    {name: 'Playa Bávaro', img : 'playa-bavaro.jpg', desc: 'Playa icónica con arena blanca y resorts de lujo', price: 'Acceso gratuito'},
+                    {name: 'Playa Bávaro', img: 'playa-bavaro.jpg', desc: 'Playa icónica con arena blanca y resorts de lujo', price: 'Acceso gratuito'},
                     {name: 'Playa Punta Cana', img: 'punta-cana-beach.jpeg', desc: 'Aguas cristalinas perfectas para deportes acuáticos', price: 'Acceso gratuito'},
                     {name: 'Playa Macao', img: 'playa-macao.webp', desc: 'Playa pública con olas perfectas para surfear', price: 'Acceso gratuito'},
                     {name: 'Playa Juanillo', img: 'playa-juanillo.jpg', desc: 'Playa tranquila ideal para familias', price: 'Acceso gratuito'}
@@ -799,8 +1147,6 @@
                     {name: 'Sunscape Puerto Plata', img: 'hotel-sunscape-puerto-plata.jpg', desc: 'Resort familiar todo incluido', price: '$220-380/noche'}
                 ],
                 restaurantes: [
-                
-            
                     {name: 'On The Waterfront', img: 'restaurante-waterfront.webp', desc: 'Mariscos y ambiente caribeño', price: '$30-55/persona'},
                     {name: 'El Batey Bar', img: 'restaurante-el-batey.jpg', desc: 'Bar icónico con ambiente local', price: '$15-30/persona'}
                 ],
@@ -922,8 +1268,7 @@
                 restaurantes: [
                     {name: 'Il Pasticcio', img: 'restaurante-il-pasticcio.jpg', desc: 'Cocina italiana gourmet', price: '$35-70/persona'},
                     {name: 'Kukaramákara', img: 'restaurante-kukaramakara.jpg', desc: 'Cocina dominicana moderna', price: '$30-60/persona'},
-                    {name: 'Pez Dorado', img: 'restaurante-pez-dorado.webp', desc: 'Mariscos y cocina asiática', price: '$40-75/persona'},
-                    
+                    {name: 'Pez Dorado', img: 'restaurante-pez-dorado.webp', desc: 'Mariscos y cocina asiática', price: '$40-75/persona'}
                 ],
                 museos: [
                     {name: 'Monumento a los Héroes de la Restauración', img: 'monumento-santiago.jpg', desc: 'Icónico monumento con vista panorámica', price: '$2-3/persona'},
@@ -942,8 +1287,7 @@
                 ],
                 restaurantes: [
                     {name: 'Aroma de la Montaña', img: 'restaurante-aroma-montana.jpg', desc: 'Cocina criolla de montaña', price: '$20-40/persona'},
-                    {name: 'El Rancho Restaurant', img: 'restaurante-el-rancho-vega.jpeg', desc: 'Comida típica dominicana', price: '$18-35/persona'},
-                    
+                    {name: 'El Rancho Restaurant', img: 'restaurante-el-rancho-vega.jpeg', desc: 'Comida típica dominicana', price: '$18-35/persona'}
                 ],
                 museos: [
                     {name: 'Carnaval de La Vega', img: 'carnaval-la-vega.jpg', desc: 'Celebración cultural más antigua del continente (Febrero)', price: 'Gratis (calle)'},
@@ -959,16 +1303,20 @@
             const province = provinceData[provinceId];
             const container = document.getElementById('province-details-container');
             
+            const provinceNames = {
+                'la-altagracia': '🏖️ La Altagracia',
+                'puerto-plata': '🌊 Puerto Plata',
+                'samana': '🐋 Samaná',
+                'santo-domingo': '🏛️ Santo Domingo',
+                'la-romana': '⛳ La Romana',
+                'barahona': '🏞️ Barahona',
+                'santiago': '🏙️ Santiago',
+                'la-vega': '🎭 La Vega'
+            };
+            
             let html = `<div class="province-details active">
                 <h2 style="text-align: center; color: var(--ocean); font-size: 2.5rem; margin-bottom: 2rem;">
-                    ${provinceId === 'la-altagracia' ? '🏖️ La Altagracia' : 
-                      provinceId === 'puerto-plata' ? '🌊 Puerto Plata' :
-                      provinceId === 'samana' ? '🐋 Samaná' :
-                      provinceId === 'santo-domingo' ? '🏛️ Santo Domingo' :
-                      provinceId === 'la-romana' ? '⛳ La Romana' :
-                      provinceId === 'barahona' ? '🏞️ Barahona' :
-                      provinceId === 'santiago' ? '🏙️ Santiago' :
-                      provinceId === 'la-vega' ? '🎭 La Vega' : ''}
+                    ${provinceNames[provinceId]}
                 </h2>`;
 
             // Playas
@@ -1037,42 +1385,64 @@
             container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function updateDestinationOptions(province) {
+        function updateMultipleDestinations() {
+            const selectedProvinces = Array.from(document.querySelectorAll('input[name="provincia"]:checked'))
+                .map(cb => cb.value);
+            
             const destDiv = document.getElementById('destination-options');
-            if (!province) {
+            
+            if (selectedProvinces.length === 0) {
                 destDiv.classList.add('hidden');
                 return;
             }
 
             destDiv.classList.remove('hidden');
-            const data = provinceData[province];
+            
+            const allHoteles = [];
+            const allPlayas = [];
+            const allRestaurantes = [];
+            const allMuseos = [];
+            
+            selectedProvinces.forEach(provId => {
+                const data = provinceData[provId];
+                allHoteles.push(...data.hoteles);
+                if (data.playas) allPlayas.push(...data.playas);
+                allRestaurantes.push(...data.restaurantes);
+                allMuseos.push(...data.museos);
+            });
 
             // Hoteles
-            const hotelSelect = document.getElementById('hotel-select');
-            hotelSelect.innerHTML = data.hoteles.map(h => 
-                `<option value="${h.name} - ${h.price}">${h.name} - ${h.price}</option>`
+            document.getElementById('hotel-checkboxes').innerHTML = allHoteles.map((h, i) => 
+                `<div class="checkbox-item">
+                    <input type="checkbox" id="hotel-${i}" name="hotel" value="${h.name} - ${h.price}">
+                    <label for="hotel-${i}">${h.name} (${h.price})</label>
+                </div>`
             ).join('');
 
             // Playas
-            const playaSelect = document.getElementById('playa-select');
-            if (data.playas && data.playas.length > 0) {
-                playaSelect.innerHTML = data.playas.map(p => 
-                    `<option value="${p.name} - ${p.price}">${p.name} - ${p.price}</option>`
-                ).join('');
-            } else {
-                playaSelect.innerHTML = '<option value="">No hay playas en esta provincia</option>';
-            }
+            document.getElementById('playa-checkboxes').innerHTML = allPlayas.length > 0 
+                ? allPlayas.map((p, i) => 
+                    `<div class="checkbox-item">
+                        <input type="checkbox" id="playa-${i}" name="playa" value="${p.name}">
+                        <label for="playa-${i}">${p.name}</label>
+                    </div>`
+                ).join('')
+                : '<p style="padding: 1rem;">No hay playas en las provincias seleccionadas</p>';
 
             // Restaurantes
-            const restSelect = document.getElementById('restaurante-select');
-            restSelect.innerHTML = data.restaurantes.map(r => 
-                `<option value="${r.name} - ${r.price}">${r.name} - ${r.price}</option>`
+            document.getElementById('restaurante-checkboxes').innerHTML = allRestaurantes.map((r, i) => 
+                `<div class="checkbox-item">
+                    <input type="checkbox" id="rest-${i}" name="restaurante" value="${r.name} - ${r.price}">
+                    <label for="rest-${i}">${r.name} (${r.price})</label>
+                </div>`
             ).join('');
 
             // Museos
-            const museoSelect = document.getElementById('museo-select');
-            museoSelect.innerHTML = data.museos.map(m => 
-                `<option value="${m.name} - ${m.price}">${m.name} - ${m.price}</option>`
+            document.getElementById('museo-checkboxes').innerHTML = allMuseos.map((m, i) => 
+                `<div class="checkbox-item">
+                    <input type="checkbox" id="museo-${i}" name="museo" value="${m.name} - ${m.price}">
+                    <label for="museo-${i}">${m.name} (${m.price})</label>
+                </div>`
             ).join('');
         }
 
@@ -1082,29 +1452,24 @@
             const form = event.target;
             const formData = new FormData(form);
             
-            // Obtener aerolíneas seleccionadas
             const aerolineas = Array.from(form.querySelectorAll('input[name="aerolinea"]:checked'))
-                .map(cb => cb.value)
-                .join(', ');
+                .map(cb => cb.value).join(', ');
             
-            // Obtener selecciones múltiples
-            const hoteles = Array.from(form.querySelector('#hotel-select').selectedOptions)
-                .map(opt => opt.value)
-                .join(', ');
+            const provincias = Array.from(form.querySelectorAll('input[name="provincia"]:checked'))
+                .map(cb => cb.value).join(', ');
             
-            const playas = Array.from(form.querySelector('#playa-select').selectedOptions)
-                .map(opt => opt.value)
-                .join(', ');
+            const hoteles = Array.from(form.querySelectorAll('input[name="hotel"]:checked'))
+                .map(cb => cb.value).join(', ');
             
-            const restaurantes = Array.from(form.querySelector('#restaurante-select').selectedOptions)
-                .map(opt => opt.value)
-                .join(', ');
+            const playas = Array.from(form.querySelectorAll('input[name="playa"]:checked'))
+                .map(cb => cb.value).join(', ');
             
-            const museos = Array.from(form.querySelector('#museo-select').selectedOptions)
-                .map(opt => opt.value)
-                .join(', ');
+            const restaurantes = Array.from(form.querySelectorAll('input[name="restaurante"]:checked'))
+                .map(cb => cb.value).join(', ');
             
-            // Crear mensaje para WhatsApp
+            const museos = Array.from(form.querySelectorAll('input[name="museo"]:checked'))
+                .map(cb => cb.value).join(', ');
+            
             let mensaje = `🌴 *NUEVA RESERVACIÓN - TRAVELLINK ALL IN ONE* 🌴\n\n`;
             mensaje += `📋 *INFORMACIÓN PERSONAL*\n`;
             mensaje += `Nombre: ${formData.get('nombre')} ${formData.get('apellido')}\n`;
@@ -1121,9 +1486,9 @@
             mensaje += `Niños: ${formData.get('ninos')}\n\n`;
             
             mensaje += `📍 *DESTINO Y SELECCIONES*\n`;
-            mensaje += `Provincia: ${formData.get('provincia')}\n`;
-            mensaje += `Hoteles Seleccionados: ${hoteles || 'Ninguno'}\n`;
-            mensaje += `Playas a Visitar: ${playas || 'Ninguna'}\n`;
+            mensaje += `Provincias: ${provincias}\n`;
+            mensaje += `Hoteles: ${hoteles || 'Ninguno'}\n`;
+            mensaje += `Playas: ${playas || 'Ninguna'}\n`;
             mensaje += `Restaurantes: ${restaurantes || 'Ninguno'}\n`;
             mensaje += `Museos/Atracciones: ${museos || 'Ninguno'}\n\n`;
             
@@ -1138,22 +1503,255 @@
             mensaje += `📧 Para más información: travelinksrl@gmail.com\n`;
             mensaje += `🌐 www.travellink-allinone.com`;
             
-            // Codificar mensaje para URL
             const mensajeCodificado = encodeURIComponent(mensaje);
-            
-            // Número de WhatsApp (formato internacional sin + ni espacios)
             const numeroWhatsApp = '18494049375';
-            
-            // Crear URL de WhatsApp
             const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
             
-            // Abrir WhatsApp en nueva ventana
             window.open(urlWhatsApp, '_blank');
-            
-            // Mostrar mensaje de confirmación
-            alert('¡Gracias por tu reservación! Serás redirigido a WhatsApp para completar tu solicitud. También puedes contactarnos en: travelinksrl@gmail.com');
+            alert('¡Gracias por tu reservación! Serás redirigido a WhatsApp para completar tu solicitud.');
             
             return false;
+        }
+
+        // CHATBOT FUNCTIONS
+        let chatState = 'initial';
+        let selectedProvince = '';
+
+        function toggleChatbot() {
+            document.getElementById('chatbot').classList.toggle('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            setTimeout(() => {
+                const response = getChatbotResponse(message.toLowerCase());
+                addMessage(response.text, 'bot', response.options);
+            }, 500);
+        }
+
+        function askQuestion(question) {
+            addMessage(question, 'user');
+            setTimeout(() => {
+                const response = getChatbotResponse(question.toLowerCase());
+                addMessage(response.text, 'bot', response.options);
+            }, 500);
+        }
+
+        function selectOption(option) {
+            askQuestion(option);
+        }
+
+        function addMessage(text, sender, options = null) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            // Formatear el texto sin asteriscos
+            const formattedText = text.replace(/\*\*/g, '');
+            
+            let html = `<div class="message-bubble">${formattedText}</div>`;
+            
+            if (options && options.length > 0) {
+                html += `<div class="chatbot-quick-options">`;
+                options.forEach(opt => {
+                    html += `<button class="quick-option" onclick="selectOption('${opt}')">${opt}</button>`;
+                });
+                html += `</div>`;
+            }
+            
+            messageDiv.innerHTML = html;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function getChatbotResponse(msg) {
+            // MENÚ PRINCIPAL
+            if (msg.includes('hola') || msg.includes('buenos') || msg.includes('hi') || msg.includes('inicio') || msg.includes('menu')) {
+                chatState = 'initial';
+                return {
+                    text: '¡Hola! 👋 Soy tu asistente TravelLink. Selecciona una opción:',
+                    options: ['📍 Ver Provincias', '💰 Ver Precios', '✈️ Cómo Reservar', '📞 Contacto', '🏨 Hoteles Todo Incluido']
+                };
+            }
+
+            // VER PROVINCIAS
+            if (msg.includes('provincia') || msg.includes('ver provincias') || msg.includes('destino')) {
+                chatState = 'provinces';
+                return {
+                    text: '🗺️ Tenemos 8 provincias disponibles. ¿Cuál te interesa?',
+                    options: ['🏖️ La Altagracia', '🌊 Puerto Plata', '🐋 Samaná', '🏛️ Santo Domingo', '⛳ La Romana', '🏞️ Barahona', '🏙️ Santiago', '🎭 La Vega', '🔙 Menú Principal']
+                };
+            }
+
+            // LA ALTAGRACIA / PUNTA CANA
+            if (msg.includes('altagracia') || msg.includes('punta cana') || msg.includes('bavaro')) {
+                selectedProvince = 'la-altagracia';
+                return {
+                    text: '🏖️ LA ALTAGRACIA (Punta Cana)\n\n✨ Lo más popular del Caribe\n\nPLAYAS:\n• Playa Bávaro - Arena blanca\n• Playa Punta Cana - Deportes acuáticos\n• Playa Macao - Surf\n\nHOTELES:\n• Hard Rock Hotel: $350-600/noche\n• Excellence Punta Cana: $400-700/noche\n• Barceló Bávaro: $280-450/noche\n\nATRACCIONES:\n• Indigenous Eyes Park: $25-35\n• Manatí Park: $45-65\n• Chocomuseo: $15-25\n\n¿Qué te gustaría saber?',
+                    options: ['💰 Ver más precios', '🏨 Ver hoteles', '🍽️ Restaurantes', '🎭 Atracciones', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // PUERTO PLATA
+            if (msg.includes('puerto plata') || msg.includes('plata')) {
+                selectedProvince = 'puerto-plata';
+                return {
+                    text: '🌊 PUERTO PLATA\n\n🏄 Costa Norte del país\n\nPLAYAS:\n• Playa Dorada - Arena dorada\n• Playa Sosúa - Snorkeling\n• Playa Cabarete - Windsurf\n\nHOTELES:\n• Lifestyle Resort: $250-420/noche\n• Casa Colonial: $180-320/noche\n• BlueBay Villas: $200-350/noche\n\nATRACCIONES:\n• Teleférico: $10-15/persona\n• 27 Charcos: $45-65/persona\n• Ocean World: $95-150/persona\n\n¿Qué necesitas?',
+                    options: ['💰 Ver más precios', '🏨 Ver hoteles', '🌊 Playas', '🎭 Atracciones', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // SAMANÁ
+            if (msg.includes('samana') || msg.includes('samaná') || msg.includes('ballena')) {
+                selectedProvince = 'samana';
+                return {
+                    text: '🐋 SAMANÁ\n\n🌴 Paraíso natural virginal\n\nPLAYAS:\n• Playa Rincón - Top mundial\n• Cayo Levantado - Isla Bacardi\n• Playa Frontón - Aislada\n\nHOTELES:\n• Sublime Samaná: $450-800/noche\n• Bahia Principe: $280-480/noche\n• The Bannister: $220-400/noche\n\nATRACCIONES:\n• Avistamiento Ballenas: $75-120 (Ene-Mar)\n• Salto del Limón: $35-55\n• Parque Los Haitises: $60-95\n\n¿Qué te interesa?',
+                    options: ['🐋 Ballenas', '🏖️ Playas', '🏨 Hoteles', '💦 Cascadas', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // SANTO DOMINGO
+            if (msg.includes('santo domingo') || msg.includes('capital') || msg.includes('colonial')) {
+                selectedProvince = 'santo-domingo';
+                return {
+                    text: '🏛️ SANTO DOMINGO\n\n🎭 Primera ciudad del Nuevo Mundo\n\nATRACCIONES:\n• Zona Colonial UNESCO - Gratis\n• Los Tres Ojos: $5-8/persona\n• Alcázar de Colón: $3-5\n• Faro a Colón: $2-4\n\nHOTELES:\n• JW Marriott: $180-320/noche\n• Hodelpa Nicolás: $150-280/noche\n• Renaissance Jaragua: $160-290/noche\n\nRESTAURANTES:\n• Pat e Palo: $40-75/persona\n• La Résidence: $60-110/persona\n• Mesón de la Cava: $45-85/persona\n\n¿Qué quieres explorar?',
+                    options: ['🏛️ Zona Colonial', '🏨 Hoteles', '🍽️ Restaurantes', '🎭 Museos', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // LA ROMANA
+            if (msg.includes('romana') || msg.includes('bayahibe') || msg.includes('saona')) {
+                selectedProvince = 'la-romana';
+                return {
+                    text: '⛳ LA ROMANA\n\n💎 Destino de lujo y golf\n\nPLAYAS:\n• Playa Bayahibe - Pueblo costero\n• Playa Dominicus - Arena blanca\n• Isla Saona - Excursión: $75-120\n\nHOTELES:\n• Casa de Campo: $450-900/noche\n• Dreams Dominicus: $320-580/noche\n• Catalonia: $250-450/noche\n\nATRACCIONES:\n• Altos de Chavón: $10-15\n• Cueva Maravillas: $8-12\n• Golf Teeth of Dog: $250-400\n\n¿Qué te gustaría?',
+                    options: ['🏝️ Isla Saona', '⛳ Golf', '🏨 Hoteles', '🏛️ Altos Chavón', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // BARAHONA
+            if (msg.includes('barahona') || msg.includes('águilas') || msg.includes('larimar')) {
+                selectedProvince = 'barahona';
+                return {
+                    text: '🏞️ BARAHONA\n\n🌊 Belleza natural sin igual\n\nPLAYAS:\n• Bahía de las Águilas: $50-80 (tour)\n• Playa San Rafael - Con río\n• Los Patos Beach - Gratis\n\nHOTELES:\n• Casa Bonita Lodge: $120-220/noche\n• Hotel Costa Larimar: $80-150/noche\n• Playazul Hotel: $60-110/noche\n\nATRACCIONES:\n• Laguna Oviedo (flamencos): $40-60\n• Minas de Larimar: $30-50\n• Parque Jaragua: $25-40\n• Polo Magnético: Gratis\n\n¿Qué deseas saber?',
+                    options: ['🏖️ Bahía Águilas', '💎 Minas Larimar', '🦩 Laguna Oviedo', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // SANTIAGO
+            if (msg.includes('santiago') || msg.includes('cibao')) {
+                selectedProvince = 'santiago';
+                return {
+                    text: '🏙️ SANTIAGO\n\n🎭 Ciudad Corazón de República Dominicana\n\nATRACCIONES:\n• Monumento Restauración: $2-3\n• Centro León: $5-8/persona\n• Fortaleza San Luis: $3-5\n• Fábrica Tabacos: $15-25\n• Gran Teatro Cibao: Según evento\n\nHOTELES:\n• Hodelpa Gran Almirante: $100-180/noche\n• Hodelpa Centro Plaza: $80-150/noche\n• Hotel Matum: $70-130/noche\n\nRESTAURANTES:\n• Il Pasticcio: $35-70/persona\n• Kukaramákara: $30-60/persona\n• Pez Dorado: $40-75/persona\n\n¿Qué necesitas?',
+                    options: ['🎭 Atracciones', '🏨 Hoteles', '🍽️ Restaurantes', '🚬 Tabacos', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // LA VEGA
+            if (msg.includes('vega') || msg.includes('carnaval') || msg.includes('jarabacoa') || msg.includes('pico duarte')) {
+                selectedProvince = 'la-vega';
+                return {
+                    text: '🎭 LA VEGA\n\n🏔️ Montañas y aventura extrema\n\nATRACCIONES:\n• Carnaval más antiguo: Gratis (Febrero)\n• Pico Duarte: $80-150 (tour)\n• Salto Jimenoa: $5-10\n• Salto Baiguate: $5-10\n• Rafting Yaque: $50-80\n\nHOTELES:\n• Jarabacoa River Club: $80-150/noche\n• Hotel Renacer: $90-170/noche\n• Villa Vega: $70-140/noche\n\nRESTAURANTES:\n• Aroma de la Montaña: $20-40\n• El Rancho: $18-35\n\n¿Qué te interesa?',
+                    options: ['🏔️ Pico Duarte', '🎭 Carnaval', '💦 Cascadas', '🚣 Rafting', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            // VER PRECIOS
+            if (msg.includes('precio') || msg.includes('costo') || msg.includes('cuanto') || msg.includes('ver más precios') || msg.includes('ver precios')) {
+                return {
+                    text: '💰 RANGOS DE PRECIOS\n\nHOTELES:\n• Económicos: $60-150/noche\n• Medianos: $150-300/noche\n• Lujo: $300-600/noche\n• Ultra Lujo: $600+/noche\n\nEXCURSIONES:\n• Básicas: $5-25/persona\n• Intermedias: $25-60/persona\n• Premium: $60-150/persona\n\n¿Qué más necesitas?',
+                    options: ['🏨 Hoteles Todo Incluido', '📍 Ver Provincias', '✈️ Cómo Reservar', '📞 Contacto', '🔙 Menú']
+                };
+            }
+
+            // TODO INCLUIDO
+            if (msg.includes('todo incluido') || msg.includes('all inclusive') || msg.includes('hoteles todo incluido')) {
+                return {
+                    text: '🌟 RESORTS TODO INCLUIDO\n\nPUNTA CANA:\n• Hard Rock: $350-600/noche\n• Excellence: $400-700/noche\n• Barceló Bávaro: $280-450/noche\n\nPUERTO PLATA:\n• Lifestyle: $250-420/noche\n• Sunscape: $220-380/noche\n\nSAMANÁ:\n• Bahia Principe: $280-480/noche\n\nLA ROMANA:\n• Dreams Dominicus: $320-580/noche\n\n¿Qué provincia prefieres?',
+                    options: ['🏖️ La Altagracia', '🌊 Puerto Plata', '🐋 Samaná', '⛳ La Romana', '✈️ Reservar', '🔙 Menú']
+                };
+            }
+
+            // CÓMO RESERVAR
+            if (msg.includes('reserv') || msg.includes('booking') || msg.includes('cómo') || msg.includes('como reservar')) {
+                return {
+                    text: '✈️ CÓMO RESERVAR\n\n3 PASOS SIMPLES:\n\n1. Ve a la sección "Reservar"\n\n2. Completa el formulario:\n   • Datos personales\n   • Fechas de viaje\n   • Selecciona MÚLTIPLES provincias\n   • Elige hoteles, playas, restaurantes\n\n3. ¡Envía por WhatsApp!\n\nPuedes seleccionar varias opciones\n\n¿Necesitas ayuda?',
+                    options: ['📞 Contactar Ahora', '💰 Ver Precios', '📍 Ver Provincias', '🏨 Todo Incluido', '🔙 Menú']
+                };
+            }
+
+            // CONTACTO
+            if (msg.includes('contacto') || msg.includes('teléfono') || msg.includes('telefono') || msg.includes('email') || msg.includes('whatsapp') || msg.includes('contactar')) {
+                return {
+                    text: '📞 CONTÁCTANOS\n\nTELÉFONO:\n+1 (849) 404-9375\n\nEMAIL:\ntravelinksrl@gmail.com\n\nWHATSAPP:\n+1 (849) 404-9375\n\nDisponibles 24/7\n\n¿Quieres que te contactemos?',
+                    options: ['💬 Abrir WhatsApp', '✈️ Cómo Reservar', '📍 Ver Provincias', '💰 Ver Precios', '🔙 Menú']
+                };
+            }
+
+            // ABRIR WHATSAPP
+            if (msg.includes('abrir whatsapp') || msg.includes('contactar ahora')) {
+                window.open('https://wa.me/18494049375?text=Hola%20TravelLink,%20necesito%20información', '_blank');
+                return {
+                    text: '✅ ¡Abriendo WhatsApp! Te redirigimos para contactar con nosotros directamente.\n\n¿Algo más en lo que pueda ayudarte?',
+                    options: ['📍 Ver Provincias', '💰 Ver Precios', '✈️ Cómo Reservar', '🔙 Menú Principal']
+                };
+            }
+
+            // VOLVER AL MENÚ
+            if (msg.includes('menu') || msg.includes('menú') || msg.includes('volver') || msg.includes('inicio')) {
+                chatState = 'initial';
+                return {
+                    text: '🏠 MENÚ PRINCIPAL\n\nSelecciona lo que necesitas:',
+                    options: ['📍 Ver Provincias', '💰 Ver Precios', '✈️ Cómo Reservar', '📞 Contacto', '🏨 Hoteles Todo Incluido']
+                };
+            }
+
+            // OPCIONES ADICIONALES
+            if (msg.includes('hoteles') || msg.includes('hotel')) {
+                return {
+                    text: '🏨 CATEGORÍAS DE HOTELES\n\nTenemos desde económicos hasta ultra lujo:\n\nECONÓMICOS:\n$60-150/noche\n\nMEDIANOS:\n$150-300/noche\n\nLUJO:\n$300-600/noche\n\nULTRA LUJO:\n$600+/noche\n\n¿Qué provincia te interesa?',
+                    options: ['📍 Ver Provincias', '🏨 Todo Incluido', '💰 Ver Precios', '✈️ Reservar', '🔙 Menú']
+                };
+            }
+
+            if (msg.includes('playa') || msg.includes('beach')) {
+                return {
+                    text: '🏖️ MEJORES PLAYAS\n\nTOP 3:\n\n1. Playa Rincón (Samaná)\n   Una de las mejores del mundo\n\n2. Bahía de las Águilas (Barahona)\n   Playa virgen espectacular\n\n3. Playa Bávaro (Punta Cana)\n   Arena blanca y resorts de lujo\n\nTodas con acceso GRATUITO\n\n¿Qué provincia prefieres?',
+                    options: ['🐋 Samaná', '🏞️ Barahona', '🏖️ La Altagracia', '📍 Ver Provincias', '🔙 Menú']
+                };
+            }
+
+            if (msg.includes('restaurante') || msg.includes('comida') || msg.includes('comer')) {
+                return {
+                    text: '🍽️ RESTAURANTES\n\nPOR PRESUPUESTO:\n\nECONÓMICOS:\n$15-30/persona\n\nMEDIANOS:\n$30-60/persona\n\nPREMIUM:\n$60-150/persona\n\nTIPOS DE COCINA:\n• Dominicana tradicional\n• Mariscos frescos\n• Internacional gourmet\n• Italiana auténtica\n\n¿Qué provincia te interesa?',
+                    options: ['📍 Ver Provincias', '🏛️ Santo Domingo', '🏖️ La Altagracia', '💰 Ver Precios', '🔙 Menú']
+                };
+            }
+
+            if (msg.includes('gracias') || msg.includes('thank')) {
+                return {
+                    text: '¡De nada! 😊\n\nEstamos aquí para ayudarte a planificar tu viaje perfecto.\n\n¿Necesitas algo más?',
+                    options: ['📍 Ver Provincias', '💰 Ver Precios', '✈️ Reservar', '📞 Contacto', '🔙 Menú']
+                };
+            }
+
+            // RESPUESTA POR DEFECTO
+            return {
+                text: '🤔 No entendí bien tu pregunta.\n\nPuedo ayudarte con:',
+                options: ['📍 Ver Provincias', '💰 Ver Precios', '✈️ Cómo Reservar', '📞 Contacto', '🏨 Todo Incluido', '🔙 Menú Principal']
+            };
+        }
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
         }
 
         // Smooth scroll para navegación
